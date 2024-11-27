@@ -1,0 +1,11 @@
+id,name,age,city,country,phone,email
+1,John Doe,30,New York,USA,1234567890,john.doe@email.com
+2,Jane Doe,25,Los Angeles,USA,0987654321,jane.doe@email.com
+3,John Smith,35,Chicago,USA,1231231234,john.smith@email.com
+4,Jane Smith,40,San Francisco,USA,4564564567,jane.smith@email.com
+5,John Snow,45,New York,USA,7897897890,john.snow@email.com
+6,Jane Snow,50,Los Angeles,USA,6546546543,jane.snow@email.com
+7,John Valentine,55,Chicago,USA,3213213213,john.valentine@email.com
+8,Jane Valentine,60,San Francisco,USA,9879879876,jane.valentine@email.com
+9,John Potter,65,New York,USA,6546546543,john.potter@email.com
+10,Jane Potter,70,Los Angeles,USA,3213213213,jane.potter@email.com
