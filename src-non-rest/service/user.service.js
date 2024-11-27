@@ -1,3 +1,5 @@
+const userModel = require("../model/user.model.js");
+
 class UserService {
   async getUserById(id) {
     if (!id) {
@@ -6,12 +8,12 @@ class UserService {
     if (isNaN(id)) {
       throw new Error("Id must be a number");
     }
-    const user = await this.userModel.findById(id);
+    const user = await userModel.findById(id);
     return user;
   }
 
   async getAllUsers() {
-    const users = await this.userModel.findAll();
+    const users = await userModel.findAll();
     return users;
   }
 
@@ -38,7 +40,7 @@ class UserService {
     if (!email) {
       throw new Error("Email is required");
     }
-    const createdUser = await this.userModel.create(user);
+    const createdUser = await userModel.create(user);
     return createdUser;
   }
 
@@ -52,7 +54,7 @@ class UserService {
     if (!user) {
       throw new Error("User is required");
     }
-    const updatedUser = await this.userModel.update(id, user);
+    const updatedUser = await userModel.update(id, user);
     return updatedUser;
   }
 
@@ -63,7 +65,9 @@ class UserService {
     if (isNaN(id)) {
       throw new Error("Id must be a number");
     }
-    await this.userModel.delete(id);
+    await userModel.delete(id);
     return { message: "User deleted successfully" };
   }
 }
+
+module.exports = new UserService();
