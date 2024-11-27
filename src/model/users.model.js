@@ -18,7 +18,8 @@ const parseUsers = async () => {
 class UsersModel {
   async create(user) {
     const users = await parseUsers();
-    users.push(user);
+    const newUser = { ...user, id: users.length + 1 };
+    users.push(newUser);
     const headers = Object.keys(users[0]);
     await fs.writeFile(
       __dirname,
@@ -27,6 +28,7 @@ class UsersModel {
         .map((user) => Object.values(user).join(","))
         .join("\n")
     );
+    return newUser;
   }
 
   async findById(id) {
@@ -42,7 +44,8 @@ class UsersModel {
     const users = await parseUsers();
     const userIndex = users.findIndex((user) => user.id === id);
     if (userIndex === -1) throw new Error("User not found");
-    users[userIndex] = user;
+    const newUser = { ...users[userIndex], ...user };
+    users[userIndex] = newUser;
     const headers = Object.keys(users[0]);
     await fs.writeFile(
       __dirname,
@@ -51,6 +54,7 @@ class UsersModel {
         .map((user) => Object.values(user).join(","))
         .join("\n")
     );
+    return newUser;
   }
 
   async delete(id) {
@@ -66,5 +70,8 @@ class UsersModel {
         .map((user) => Object.values(user).join(","))
         .join("\n")
     );
+    return true;
   }
 }
+
+module.exports = new UsersModel();
