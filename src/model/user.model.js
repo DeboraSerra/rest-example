@@ -1,6 +1,7 @@
 const fs = require("fs/promises");
 const path = require("path");
 const CodeError = require("../helpers/error.helper");
+const { statusCodes } = require("../statusCodes");
 
 let headers;
 
@@ -36,10 +37,10 @@ class UsersModel {
             const info = Object.values(user).join(",");
             return `${headers}\n${info}`;
           }
-          const orderedUser = {}
-          headers.forEach(header => {
-            orderedUser[header] = user[header]
-          })
+          const orderedUser = {};
+          headers.forEach((header) => {
+            orderedUser[header] = user[header];
+          });
           return Object.values(orderedUser).join(",");
         })
         .join("\n")
@@ -50,7 +51,8 @@ class UsersModel {
   async findById(id) {
     const users = await parseUsers();
     const foundUser = users.find((user) => user.id === id);
-    if (!foundUser) throw new CodeError("User not found", 404);
+    if (!foundUser)
+      throw new CodeError("User not found", statusCodes.NOT_FOUND);
     return foundUser;
   }
 
@@ -61,7 +63,8 @@ class UsersModel {
   async update(id, user) {
     const users = await parseUsers();
     const userIndex = users.findIndex((user) => user.id === id);
-    if (userIndex === -1) throw new CodeError("User not found", 404);
+    if (userIndex === -1)
+      throw new CodeError("User not found", statusCodes.NOT_FOUND);
     const newUser = { ...users[userIndex], ...user };
     users[userIndex] = newUser;
     await fs.writeFile(
@@ -73,10 +76,10 @@ class UsersModel {
             const info = Object.values(user).join(",");
             return `${headers}\n${info}`;
           }
-          const orderedUser = {}
-          headers.forEach(header => {
-            orderedUser[header] = user[header]
-          })
+          const orderedUser = {};
+          headers.forEach((header) => {
+            orderedUser[header] = user[header];
+          });
           return Object.values(orderedUser).join(",");
         })
         .join("\n")
@@ -87,7 +90,8 @@ class UsersModel {
   async delete(id) {
     const users = await parseUsers();
     const userIndex = users.findIndex((user) => user.id === id);
-    if (userIndex === -1) throw new CodeError("User not found", 404);
+    if (userIndex === -1)
+      throw new CodeError("User not found", statusCodes.NOT_FOUND);
     const deletedUser = users[userIndex];
     users.splice(userIndex, 1);
     await fs.writeFile(
@@ -99,10 +103,10 @@ class UsersModel {
             const info = Object.values(user).join(",");
             return `${headers}\n${info}`;
           }
-          const orderedUser = {}
-          headers.forEach(header => {
-            orderedUser[header] = user[header]
-          })
+          const orderedUser = {};
+          headers.forEach((header) => {
+            orderedUser[header] = user[header];
+          });
           return Object.values(orderedUser).join(",");
         })
         .join("\n")
